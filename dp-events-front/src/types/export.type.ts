@@ -1,0 +1,23 @@
+export type ExcelRowType = {
+    id: string;
+    machine: string,
+    efficiency: number,
+    hours?: number,
+    successDuration?: number,
+    successDurationPercent?: number,
+    repairWaitingDuration?: number,
+    repairWaitingDurationPercent?: number,
+    repairingDuration?: number,
+    repairingDurationPercent?: number,
+    repairAcceptDuration?: number,
+    repairAcceptDurationPercent?: number,
+    allStagesDuration?: number,
+    breaksHoursFirstPriorityPercent? : number,
+    breaksHoursFirstPriority? : number,
+    breaksHoursSecondPriority?: number,
+    breaksHoursSecondPriorityPercent?: number,
+    breaksHoursThirdPriority?: number,
+    breaksHoursThirdPriorityPercent?: number,
+    breaksHoursStopPriority?: number,
+    breaksHoursStopPriorityPercent?: number,
+}[];
