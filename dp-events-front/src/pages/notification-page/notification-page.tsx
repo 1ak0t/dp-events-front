@@ -13,13 +13,8 @@ function NotificationPage() {
     const notifications = useAppSelector(getNotifications);
     const dispatch = useAppDispatch();
     const user = useAppSelector(getUser);
-    let notificationByUser = notifications.filter(not => !not.roles?.includes(UserRoles.Supply));
-    if (user.role.includes(UserRoles.Supply)) {
-        notificationByUser = notifications.filter(not => not.roles?.includes(UserRoles.Supply));
-    } else if (user.role.includes(UserRoles.CEO) || user.role.includes(UserRoles.Admin)) {
-        notificationByUser = notifications;
-    }
-    const notificationSorted = [...notificationByUser].sort((a, b) => {
+
+    const notificationSorted = [...notifications].sort((a, b) => {
         if (dayjs(a.createdAt).unix() < dayjs(b.createdAt).unix()) {
             return 1;
         }

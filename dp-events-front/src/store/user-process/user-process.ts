@@ -18,7 +18,8 @@ const initialState: UserProcess = {
         middleName: '',
         email: '',
         role: [],
-        notificationsCount: 0
+        notificationsCount: 0,
+        jobTitle: ''
     },
 }
 

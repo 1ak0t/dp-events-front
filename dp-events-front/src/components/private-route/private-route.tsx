@@ -7,25 +7,25 @@ import {getUser} from "../../store/user-process/selectors";
 type PrivateRouteProps = {
     authorizationStatus: AuthorizationStatus;
     children: JSX.Element;
-    notAccess?: UserRoles[]
+    roleAccess?: UserRoles[]
 }
 
-function PrivateRoute({authorizationStatus, children, notAccess}: PrivateRouteProps) {
+function PrivateRoute({authorizationStatus, children, roleAccess}: PrivateRouteProps) {
     const user = useAppSelector(getUser);
     if (authorizationStatus === AuthorizationStatus.Auth) {
-        if ((notAccess?.includes(UserRoles.Admin)) && (notAccess?.includes(UserRoles.CEO)) && notAccess !== undefined && (notAccess.filter(element => user.role.includes(element)).length > 0)) {
-            let navigatePath = AppRoutes.Root;
-            notAccess.map(role => {
-                switch (role) {
-                    case UserRoles.Supply: {
-                        navigatePath = AppRoutes.Supply;
-                    }
-                }
-            })
-            return (<Navigate to={navigatePath} />);
+        if (user.role.includes(UserRoles.Admins)) {
+            return children;
         }
 
-        return children;
+        if (roleAccess === undefined) {
+            return children;
+        }
+
+        if ((roleAccess !== undefined && (roleAccess.filter(element => user.role.includes(element)).length > 0))) {
+            return children;
+        } else {
+            return (<Navigate to={AppRoutes.Root} />);
+        }
     }
 
     return(<Navigate to={AppRoutes.Login} />);

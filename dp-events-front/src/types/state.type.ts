@@ -8,6 +8,7 @@ import {
     SupplyOrdersType,
     UserType
 } from "./initialState.type";
+import {EventsType} from "./event.type";
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -33,5 +34,6 @@ export type DataProcess = {
     isPhotoDownloading: boolean;
     isChangingStage: boolean;
     isChangedStage: null | boolean;
+    events: EventsType;
 }
 

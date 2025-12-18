@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dayjs": "^1.11.19",
     "victory": "^37.3.6",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }

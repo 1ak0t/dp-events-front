@@ -7,6 +7,7 @@ import {
     NotificationType,
     SupplyOrdersType, UserType
 } from "../../types/initialState.type";
+import {EventsType} from "../../types/event.type";
 
 export const getDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isDataLoading;
 export const getMachines = (state: State): MachineType[] => state[NameSpace.Data].machines;
@@ -22,3 +23,4 @@ export const getNotifications = (state: State): NotificationType[] => state[Name
 export const getSupplyOrders = (state: State): SupplyOrdersType[] => state[NameSpace.Data].supplies;
 export const getUsers = (state: State): UserType[] => state[NameSpace.Data].users;
 export const getCurrencies = (state: State): CurrenciesType[] => state[NameSpace.Data].currencies;
+export const getEvents = (state: State): EventsType => state[NameSpace.Data].events;
