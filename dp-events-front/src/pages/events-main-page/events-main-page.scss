@@ -1,0 +1,36 @@
+.events-main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 25px 15px 25px;
+  position: relative;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,25%);
+  }
+
+  &__title {
+    text-align: right;
+    font-size: 19px;
+    color: #565f76;
+  }
+
+  &__table {
+
+  }
+
+  &__events {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+  }
+}

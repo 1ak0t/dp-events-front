@@ -81,7 +81,8 @@ export type UserType = {
     middleName: string,
     email: string,
     role: UserRoles[],
-    notificationsCount: number
+    notificationsCount: number,
+    jobTitle: string,
 }
 
 export type InitialStateType = {

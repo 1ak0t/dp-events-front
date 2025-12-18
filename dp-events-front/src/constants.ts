@@ -4,17 +4,12 @@ export const publicVapidKey = 'BG2M57wQ4s6MhyXhryYdfpmaPGUSWhZgbWGf7kHkNTfMaVbIC
 export enum AppRoutes {
     Login = '/login',
     Root = '/',
-    BreakRegistration = '/new-break',
-    RepairRegistration = '/repair-registration',
-    BreaksList = '/breaks-list',
     GoodSend = '/good-send',
-    MachineBreaks = '/machine-breaks',
     NotFound = '*',
-    Agreement = '/agreement',
     Notifications = '/notifications',
-    Supply = '/supply',
-    Analytics = '/analytics',
-    Currencies = '/currencies',
+    EmployeesPage = '/empoyees',
+    AddEvent = '/add-event',
+    SuccessWarning = '/success-warning',
 }
 
 export enum MachinesStatus {
@@ -61,13 +56,9 @@ export enum RepairStage {
 }
 
 export enum UserRoles {
-    Operator = "Оператор",
-    ITR = "ИТР",
-    Engineers = "Инженеры",
-    HeadEngineer = "Главный инженер",
-    CEO = "Генеральный директор",
-    Admin = "Администратор",
-    Supply = "Снабжение"
+    Admins = "Администраторы",
+    Secretaries = "Секретари",
+    Users = "Пользователи"
 }
 
 export const Priority = ['Высокий - Неработает', 'Средний - Работает нештатно','Низкий - Требует внимания'];
@@ -75,14 +66,15 @@ export const Priority = ['Высокий - Неработает', 'Средни�
 export enum APIRoute{
     Machines = '/machines',
     Breaks = '/breaks',
+    Events = '/events',
     BreaksTypeByMachine = '/break-types-by-machine',
     Login = '/users/login',
+    Register = '/users/register',
     Images = '/upload/',
     Logout = '/logout',
     Notifications = '/notifications',
     Users = '/users',
-    SupplyOrders = '/supplies',
-    Currecies = '/currencies',
+    SuccessWarning = '/events/success-warning',
 }
 
 export enum NameSpace {

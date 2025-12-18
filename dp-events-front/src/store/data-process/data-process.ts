@@ -16,11 +16,8 @@ import {
     updateRepairCompletedImageAction,
     updateRepairingImageAction,
     updateSuccessImageAction,
-    fetchSupplyOrders,
-    createNewSuppliesAction,
-    updateSupplyAction,
     fetchUsersAction,
-    fetchCurrencies
+    updateUserAction, fetchEvents, createNewEventAction
 } from "../api-actions";
 
 const initialState: DataProcess = {
@@ -37,7 +34,8 @@ const initialState: DataProcess = {
     isCreatedNewBreak: null,
     isPhotoDownloading: false,
     isChangingStage: false,
-    isChangedStage: null
+    isChangedStage: null,
+    events: []
 }
 
 export const dataProcess = createSlice({
@@ -53,6 +51,30 @@ export const dataProcess = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(fetchEvents.pending, (state) => {
+                state.isDataLoading = true;
+                state.hasError = false;
+            })
+            .addCase(fetchEvents.fulfilled, (state, action) => {
+                state.events = action.payload;
+                state.isDataLoading = false;
+            })
+            .addCase(fetchEvents.rejected, (state) => {
+                state.isDataLoading = false;
+                state.hasError = true;
+            })
+            .addCase(createNewEventAction.pending, (state) => {
+                state.isDataLoading = true;
+                state.hasError = false;
+            })
+            .addCase(createNewEventAction.fulfilled, (state, action) => {
+                state.events.push(action.payload);
+                state.isDataLoading = false;
+            })
+            .addCase(createNewEventAction.rejected, (state) => {
+                state.isDataLoading = false;
+                state.hasError = true;
+            })
             .addCase(fetchMachines.pending, (state) => {
                 state.isDataLoading = true;
                 state.hasError = false;
@@ -62,30 +84,6 @@ export const dataProcess = createSlice({
                 state.isDataLoading = false;
             })
             .addCase(fetchMachines.rejected, (state) => {
-                state.isDataLoading = false;
-                state.hasError = true;
-            })
-            .addCase(fetchSupplyOrders.pending, (state) => {
-                state.isDataLoading = true;
-                state.hasError = false;
-            })
-            .addCase(fetchSupplyOrders.fulfilled, (state, action) => {
-                state.supplies = action.payload;
-                state.isDataLoading = false;
-            })
-            .addCase(fetchSupplyOrders.rejected, (state) => {
-                state.isDataLoading = false;
-                state.hasError = true;
-            })
-            .addCase(fetchBreaks.pending, (state) => {
-                state.isDataLoading = true;
-                state.hasError = false;
-            })
-            .addCase(fetchBreaks.fulfilled, (state, action) => {
-                state.breaks = action.payload;
-                state.isDataLoading = false;
-            })
-            .addCase(fetchBreaks.rejected, (state) => {
                 state.isDataLoading = false;
                 state.hasError = true;
             })
@@ -110,18 +108,6 @@ export const dataProcess = createSlice({
                 state.isDataLoading = false;
             })
             .addCase(fetchNotifications.rejected, (state) => {
-                state.isDataLoading = false;
-                state.hasError = true;
-            })
-            .addCase(fetchCurrencies.pending, (state) => {
-                state.isDataLoading = true;
-                state.hasError = false;
-            })
-            .addCase(fetchCurrencies.fulfilled, (state, action) => {
-                state.currencies = action.payload;
-                state.isDataLoading = false;
-            })
-            .addCase(fetchCurrencies.rejected, (state) => {
                 state.isDataLoading = false;
                 state.hasError = true;
             })
@@ -291,27 +277,9 @@ export const dataProcess = createSlice({
             .addCase(fetchImage.fulfilled, (state) => {
                 state.isPhotoDownloading = false;
             })
-            .addCase(createNewSuppliesAction.pending, (state, action) => {
-                state.isDataLoading = true;
-                state.hasError = false;
-            })
-            .addCase(createNewSuppliesAction.fulfilled, (state, action) => {
-                state.supplies = state.supplies.concat(action.payload);
+            .addCase(updateUserAction.fulfilled, (state, action) => {
+                state.users = action.payload;
                 state.isDataLoading = false;
-            })
-            .addCase(createNewSuppliesAction.rejected, (state, action) => {
-                state.isDataLoading = false;
-                state.hasError = true;
-            })
-            .addCase(updateSupplyAction.pending, (state, action) => {
-                state.hasError = false;
-            })
-            .addCase(updateSupplyAction.fulfilled, (state, action) => {
-                const currentSupplyIndex = state.supplies.findIndex(order => order.id === action.payload.id);
-                state.supplies[currentSupplyIndex] = action.payload;
-            })
-            .addCase(updateSupplyAction.rejected, (state, action) => {
-                state.hasError = true;
             })
     }
 });
