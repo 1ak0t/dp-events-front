@@ -9,6 +9,7 @@ import {redirectToRoute} from "../../store/actions";
 import {getUser} from "../../store/user-process/selectors";
 import {getUsers} from "../../store/data-process/selectors";
 import dayjs from "dayjs";
+import {Link} from "react-router-dom";
 
 function CreateEventPage() {
     const user = useAppSelector(getUser);
@@ -82,12 +83,16 @@ function CreateEventPage() {
     }
 
     return (
-        <>
+        <div className="create-event-page">
             <Helmet>
                 <title>Создать новое ключевое событие</title>
             </Helmet>
-            <h1 className="status-page__title">Создать новое ключевое событие</h1>
-            <div>
+            <header className="events-main-page__header">
+                <Link to={AppRoutes.Root}><img src='../../imgs/dp-logo.svg' width={75}/></Link>
+                <div className="events-main-page__title">Ключевые события "Деталь&nbsp;Проект"</div>
+            </header>
+            <div className="create-event-page__form">
+                <h2 className="create-event-page__title">Новое событие</h2>
                 <label htmlFor="">Наименование работ</label>
                 <input type="text" onChange={onEventNameChangeHandler}/>
                 <label htmlFor="">Наименование события</label>
@@ -96,6 +101,7 @@ function CreateEventPage() {
                 <input type="date" onChange={onEventDeadLineChangeHandler}/>
                 <label htmlFor="">Отчетная документация</label>
                 <input type="text" onChange={onEventDocumentsChangeHandler}/>
+                <label htmlFor="">Ответственный</label>
                 <select value={''} onChange={(e) => setEventMainPerson(e.target.value)}>
                     {users.map(el => (<option value={el.surname}>{el.surname} {el.name}</option>))}
                 </select>
@@ -104,7 +110,7 @@ function CreateEventPage() {
             </div>
 
             <BottomMenu />
-        </>
+        </div>
     );
 }
 

@@ -1,5 +1,6 @@
 .event {
   min-height: 120px;
+  width: 100%;
   background-color: #ffffff;
   box-shadow: 1px 1px 4px rgba(0,0,0,25%);
   display: flex;
@@ -41,7 +42,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 0 15px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   &__to-deadline {
@@ -50,6 +51,7 @@
 
   &__description  {
     display: none;
+    width: 100%;
     flex-direction: column;
     row-gap:10px;
     padding: 10px 15px;

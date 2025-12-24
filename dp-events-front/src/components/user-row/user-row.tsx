@@ -4,6 +4,7 @@ import {useAppDispatch} from "../../hooks";
 import {UserRoles} from "../../constants";
 import {deleteUserAction, updateUserAction} from "../../store/api-actions";
 import {UpdateUserDataType} from "../../types/user-data.type";
+import {MdClose, MdCreate, MdDelete, MdSave, MdSaveAs, MdSavings} from "react-icons/md";
 
 type UserRowPropsType = {
     user: UserType;
@@ -71,33 +72,35 @@ function UserRow(props: UserRowPropsType) {
     return (
         <>
             {isChanging ? (
-                <tr>
-                    <>
-                        <button onClick={() => setIsChanging(!isChanging)}>Отменить</button>
-                        <button onClick={() => onSaveButtonClickHandler()}>Сохранить</button>
-                    </>
-                    <td><input type="text" value={userSurname} onChange={onSurnameChangeHandler} placeholder={userSurname} /></td>
-                    <td><input type="text" value={userName} onChange={onNameChangeHandler} placeholder={userName}></input></td>
-                    <td><input type="text" value={userMiddleName} onChange={onMiddleNameChangeHandler} placeholder={userMiddleName}></input></td>
-                    <td><input type="text" value={userJobTitle} onChange={onJobTitleChangeHandler} placeholder={userJobTitle}></input></td>
-                    <td>{user.email}</td>
-                    <td><select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
-                        <option value={UserRoles.Admins}>{UserRoles.Admins}</option>
-                        <option value={UserRoles.Secretaries}>{UserRoles.Secretaries}</option>
-                        <option value={UserRoles.Users}>{UserRoles.Users}</option>
-                    </select></td>
-                </tr>
+                <article className="user">
+                    <div className="user__fio user__fio--changing">
+                        <input type="text" value={userSurname} onChange={onSurnameChangeHandler} placeholder={userSurname} />
+                        <input type="text" value={userName} onChange={onNameChangeHandler} placeholder={userName}></input>
+                        <input type="text" value={userMiddleName} onChange={onMiddleNameChangeHandler} placeholder={userMiddleName}></input>
+                        <input type="text" value={userJobTitle} onChange={onJobTitleChangeHandler} placeholder={userJobTitle}></input>
+                        <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+                            <option value={UserRoles.Admins}>{UserRoles.Admins}</option>
+                            <option value={UserRoles.Secretaries}>{UserRoles.Secretaries}</option>
+                            <option value={UserRoles.Users}>{UserRoles.Users}</option>
+                        </select>
+                    </div>
+                    <div className="user__buttons">
+                        <span onClick={() => setIsChanging(!isChanging)}><MdClose /></span>
+                        <span onClick={() => onSaveButtonClickHandler()}><MdSave /></span>
+                    </div>
+                </article>
             ) : (
-                <tr>
-                    <button onClick={() => setIsChanging(!isChanging)}>Редактировать</button>
-                    <td>{user.surname}</td>
-                    <td>{user.name}</td>
-                    <td>{user.middleName}</td>
-                    <td>{user.jobTitle}</td>
-                    <td>{user.email}</td>
-                    <td>{user.role}</td>
-                    <button onClick={() => dispatch(deleteUserAction(user.id))}>Удалить</button>
-                </tr>
+                <article className="user">
+                    <div className="user__fio">{user.surname}</div>
+                    <div className="user__fio">{user.name} {user.middleName}</div>
+                    <div>{user.jobTitle}</div>
+                    <a href={`mailto:${user.email}`}>{user.email}</a>
+                    <div>{user.role}</div>
+                    <div className="user__buttons">
+                        <span onClick={() => setIsChanging(!isChanging)}><MdCreate /></span>
+                        <span onClick={() => dispatch(deleteUserAction(user.id))}><MdDelete /></span>
+                    </div>
+                </article>
             )}
         </>
     );
