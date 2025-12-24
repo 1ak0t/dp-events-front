@@ -2,13 +2,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 35px;
+  padding: 100px 25px 15px 25px;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  row-gap: 15px;
 
   &__title {
     margin-bottom: 35px;
   }
 
-  &__table {
+  &__add-user-block {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid #565f76;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,25%);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
 
+  &__close-button {
+    border: none;
+    background-color: transparent;
+    align-self: flex-end;
+    font-size: 24px;
+    margin-bottom: -25px;
+    margin-top: -15px;
+    margin-right: -13px;
+    color: #565f76;
+    padding: 10px;
   }
 }

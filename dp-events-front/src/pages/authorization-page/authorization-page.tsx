@@ -1,4 +1,4 @@
-import companyLogo from '../../imgs/logo-main.svg';
+import companyLogo from '../../imgs/dp-logo.svg';
 import AuthForm from "../../components/auth-form/auth-form";
 import './authorization-page.scss';
 import {Helmet} from "react-helmet-async";

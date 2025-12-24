@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 0;
   display: flex;
-  height: 77px;
+  height: 75px;
   width: 100%;
   max-width: 1024px;
   justify-content: space-between;
@@ -15,9 +15,9 @@
     top: 0;
     height: 100vh;
     flex-direction: column;
-    width: 90px;
+    width: 100px;
     justify-content: normal;
-    border-radius: 0 15px 15px 0;
+    padding-top: 85px;
   }
 
   &__button {
@@ -58,11 +58,10 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 100px;
-    right: 10px;
+    bottom: 90px;
+    right: 20px;
     z-index: 1000;
-    width: 20%;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25098);
 
     @media (width > 1200px) {
@@ -77,8 +76,9 @@
       display: none;
     }
 
-    a {
-      align-self: auto;
+    button {
+      align-self: center;
+      padding: 15px 20px;
     }
 
   }

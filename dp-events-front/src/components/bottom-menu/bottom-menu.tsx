@@ -42,12 +42,12 @@ function BottomMenu () {
                     <MdOutlineDifference className="bottom-menu__button--profile" />
                     Добавить<br></br>событие
                     </Link>
-                }
-                <button className="bottom-menu__button" onClick={() => setIsProfileSubmenu(!isProfileSubmenu)}>
+                } 
+                <div className="bottom-menu__button" onClick={() => setIsProfileSubmenu(!isProfileSubmenu)}>
                     {user.notificationsCount > 0 && <span className="bottom-menu__breaks-counter">{user.notificationsCount}</span>}
                     <MdOutlinePermIdentity className="bottom-menu__button--profile"/>
                     Профиль
-                </button>
+                </div>
                 <div className={classNames(
                     "bottom-menu__submenu",
                     {"bottom-menu__submenu--inactive": !isProfileSubmenu}

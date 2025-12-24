@@ -4,9 +4,11 @@ import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {getUsers} from "../../store/data-process/selectors";
 import UserRow from "../../components/user-row/user-row";
-import {UserRoles} from "../../constants";
+import {AppRoutes, UserRoles} from "../../constants";
 import {CreateUserDataType, UpdateUserDataType} from "../../types/user-data.type";
 import {createUserAction, updateUserAction} from "../../store/api-actions";
+import {MdClose} from "react-icons/md";
+import {Link} from "react-router-dom";
 
 function EmployeesPage() {
     const users = useAppSelector(getUsers);
@@ -99,45 +101,36 @@ function EmployeesPage() {
             <Helmet>
                 <title>Сотрудники</title>
             </Helmet>
-            <h1 className="employees-page__title">Сотрудники</h1>
-            <table>
-                <tbody>
-                <tr>
-                    <th></th>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>Должность</th>
-                    <th>Почта</th>
-                    <th>Роль</th>
-                </tr>
-                {users.map((user) => (
-                    <UserRow user={user} key={user.id} />
-                ))}
-                </tbody>
-            </table>
-            <button onClick={() => setIsAddUser(!isAddUser)}>+ Добавить пользователя</button>
+            <header className="events-main-page__header">
+                <Link to={AppRoutes.Root}><img src='../../imgs/dp-logo.svg' width={75}/></Link>
+                <div className="events-main-page__title">Ключевые события "Деталь&nbsp;Проект"</div>
+            </header>
+            <button className="employees-page__button" onClick={() => setIsAddUser(!isAddUser)}>Добавить пользователя</button>
+            {users.map((user) => (
+                <UserRow user={user} key={user.id} />
+            ))}
             <BottomMenu />
             {isAddUser && (
-                <div>
-                    <label htmlFor="">Фамилия</label>
-                    <input type="text" onChange={onSurnameChangeHandler}/>
-                    <label htmlFor="">Имя</label>
-                    <input type="text" onChange={onNameChangeHandler}/>
-                    <label htmlFor="">Отчество</label>
-                    <input type="text" onChange={onMiddleNameChangeHandler}/>
-                    <label htmlFor="">Email</label>
-                    <input type="email" onChange={onEmailChangeHandler}/>
-                    <label htmlFor="">Должность</label>
-                    <input type="text" onChange={onJobTitleChangeHandler}/>
-                    <label htmlFor="">Роль</label>
-                    <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+                <div className="employees-page__add-user-block">
+                    <span className="employees-page__close-button" onClick={() => setIsAddUser(!isAddUser)}><MdClose/></span>
+                    <label htmlFor="name">Фамилия</label>
+                    <input type="text" name="name" onChange={onSurnameChangeHandler}/>
+                    <label htmlFor="surname">Имя</label>
+                    <input type="text" name="surname" onChange={onNameChangeHandler}/>
+                    <label htmlFor="middle-name">Отчество</label>
+                    <input type="text" name="middle-name" onChange={onMiddleNameChangeHandler}/>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" onChange={onEmailChangeHandler}/>
+                    <label htmlFor="job-title">Должность</label>
+                    <input type="text" name="job-title" onChange={onJobTitleChangeHandler}/>
+                    <label htmlFor="role">Роль</label>
+                    <select value={userRole} name="role" onChange={(e) => setUserRole(e.target.value)}>
                         <option value={UserRoles.Admins}>{UserRoles.Admins}</option>
                         <option value={UserRoles.Secretaries}>{UserRoles.Secretaries}</option>
                         <option value={UserRoles.Users}>{UserRoles.Users}</option>
                     </select>
-                    <label htmlFor="">Пароль</label>
-                    <input type="password" onChange={onPasswordChangeHandler}/>
+                    <label htmlFor="password">Пароль</label>
+                    <input type="password" name="password" onChange={onPasswordChangeHandler}/>
                     {isError && (<h3>Не все поля заполнены</h3>)}
                     <button onClick={() => onSaveButtonClickHandler()}>Отправить</button>
                 </div>
