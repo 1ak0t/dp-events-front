@@ -9,7 +9,7 @@ import {SyncLoader} from "react-spinners";
 import {getAuthCheckedStatus, getAuthorizationStatus, getUser} from "./store/user-process/selectors";
 import {getDataLoadingStatus, getErrorStatus} from "./store/data-process/selectors";
 import {CSSProperties, useEffect} from "react";
-import companyLogo from './imgs/logo-main.svg';
+import companyLogo from './imgs/dp-logo.svg';
 import NetworkErrorPage from "./pages/network-error-page/network-error-page";
 import {fetchEvents, fetchUsersAction} from "./store/api-actions";
 import EventsMainPage from "./pages/events-main-page/events-main-page";

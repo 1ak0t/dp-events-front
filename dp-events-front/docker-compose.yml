@@ -6,9 +6,9 @@ services:
     restart: unless-stopped
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
-      - ./data/letsencrypt:/etc/letsencrypt/
+      - ./data/ssl:/etc/ssl/
       - ./build:/usr/share/nginx/html
     ports:
-      - "5477:5477"
-      - "5478:5478"
+      - "7844:7844"
+      - "7845:7845"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"

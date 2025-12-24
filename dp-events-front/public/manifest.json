@@ -1,6 +1,6 @@
 {
-  "short_name": "Severskcable Status",
-  "name": "Severskcable Status",
+  "short_name": "Events DP",
+  "name": "Events Detail Project",
   "icons": [
     {
       "src": "favicon.ico",
@@ -37,11 +37,6 @@
       "type": "image/png"
     },
     {
-      "src": "icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
       "src": "icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
@@ -53,15 +48,15 @@
   "background_color": "#ffffff",
   "screenshots": [
     {
-      "src": "img.png",
+      "src": "512.png",
       "type": "image/png",
-      "sizes": "540x720",
+      "sizes": "512x512",
       "form_factor": "narrow"
     },
     {
-      "src": "img.png",
+      "src": "1024.png",
       "type": "image/jpg",
-      "sizes": "720x540",
+      "sizes": "1024x1024",
       "form_factor": "wide"
     }
   ]
