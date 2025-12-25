@@ -57,18 +57,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
+    position: absolute;
+    bottom: 80px;
     z-index: 1000;
     border-radius: 10px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25098);
 
     @media (width > 1200px) {
-      left: 100px;
+      left: 110px;
       right: auto;
       bottom: auto;
-      top: 400px;
+      top: 0;
       width: 90px;
     }
 

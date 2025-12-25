@@ -1,10 +1,10 @@
 import {UserType} from "./initialState.type";
 
 export enum EventStatuses {
-    Planed = "Запланировано (> 45 к.д.)",
-    Attention = "Требует внимания (< 45 к.д.)",
-    Warning = "Важно (< 30 к.д.)",
-    Critical = "Критический (< 15 к.д.)"
+    Planed = "Запланировано",
+    Attention = "Требует внимания",
+    Warning = "Важно",
+    Critical = "Критический"
 }
 
 export type EventType = {

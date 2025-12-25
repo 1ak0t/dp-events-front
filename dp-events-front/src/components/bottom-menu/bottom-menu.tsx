@@ -47,20 +47,20 @@ function BottomMenu () {
                     {user.notificationsCount > 0 && <span className="bottom-menu__breaks-counter">{user.notificationsCount}</span>}
                     <MdOutlinePermIdentity className="bottom-menu__button--profile"/>
                     Профиль
-                </div>
-                <div className={classNames(
-                    "bottom-menu__submenu",
-                    {"bottom-menu__submenu--inactive": !isProfileSubmenu}
-                )}>
-                    {/*<Link to={AppRoutes.Notifications} className="bottom-menu__button" onClick={() => dispatch(fetchNotifications())}>*/}
-                    {/*    {user.notificationsCount > 0 && <span className="bottom-menu__breaks-counter">{user.notificationsCount}</span>}*/}
-                    {/*    <img src="/icons/menu-icon/menu-notification-icon.svg" alt=""/>*/}
-                    {/*    <br></br>Уведомления*/}
-                    {/*</Link>*/}
-                    <button className="bottom-menu__button" onClick={() => dispatch(logoutAction())}>
-                        <MdOutlineLogout className="bottom-menu__button--profile"/>
-                        Выйти
-                    </button>
+                    <div className={classNames(
+                        "bottom-menu__submenu",
+                        {"bottom-menu__submenu--inactive": !isProfileSubmenu}
+                    )}>
+                        {/*<Link to={AppRoutes.Notifications} className="bottom-menu__button" onClick={() => dispatch(fetchNotifications())}>*/}
+                        {/*    {user.notificationsCount > 0 && <span className="bottom-menu__breaks-counter">{user.notificationsCount}</span>}*/}
+                        {/*    <img src="/icons/menu-icon/menu-notification-icon.svg" alt=""/>*/}
+                        {/*    <br></br>Уведомления*/}
+                        {/*</Link>*/}
+                        <button className="bottom-menu__button" onClick={() => dispatch(logoutAction())}>
+                            <MdOutlineLogout className="bottom-menu__button--profile"/>
+                            Выйти
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

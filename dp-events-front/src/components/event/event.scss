@@ -6,11 +6,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   text-align: center;
   row-gap:7px;
   cursor: pointer;
   border-radius: 10px;
+  position: relative;
+
+  @media (width > 1200px) {
+    min-height: 90px;
+    row-gap: 0;
+  }
+
+  &__short {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    row-gap:7px;
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+    border-radius: 10px;
+
+    @media (width > 1200px) {
+      flex-direction: row;
+      min-height: 90px;
+      box-shadow: 3px 3px 6px rgba(0,0,0,25%);
+      position: relative;
+      padding-left: 40px;
+    }
+  }
 
   &__status {
     width: 100%;
@@ -18,6 +46,16 @@
     background-color: #75BA60;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+
+    @media (width > 1200px) {
+      height: 100%;
+      width: 20px;
+      border-radius: 10px 0 0 10px;
+      margin-right: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
     &--attention {
       background-color: #EFEF3F;
@@ -36,6 +74,12 @@
     font-weight: 600;
   }
 
+  &__job-name {
+    @media (width > 1200px) {
+
+    }
+  }
+
   &__dates {
     display: flex;
     margin-top: auto;
@@ -43,10 +87,28 @@
     justify-content: space-between;
     padding: 0 15px;
     margin-bottom: 8px;
+
+    @media (width > 1200px) {
+      flex-direction: column;
+      width: 200px;
+      justify-content: center;
+      margin-bottom: auto;
+    }
+  }
+
+  &__date {
+    @media (width > 1200px) {
+      font-size: 18px;
+      font-weight: 500;
+    }
   }
 
   &__to-deadline {
     font-weight: 450;
+    @media (width > 1200px) {
+      font-weight: 400;
+      font-size: 13px;
+    }
   }
 
   &__description  {
@@ -57,6 +119,10 @@
     padding: 10px 15px;
     background-color: #e3e3e3;
     border-top: 1px solid #a6a6a6;
+
+    @media (width > 1200px) {
+
+    }
 
     &--active {
       display: flex;

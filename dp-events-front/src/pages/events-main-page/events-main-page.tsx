@@ -7,8 +7,9 @@ import {getUser} from "../../store/user-process/selectors";
 import Event from "../../components/event/event";
 import dayjs from "dayjs";
 import updateLocale from 'dayjs/plugin/updateLocale';
-import {UserRoles} from "../../constants";
 import {EventStatuses} from "../../types/event.type";
+import Select, {MultiValue} from "react-select";
+import {MdFilterAlt} from "react-icons/md";
 
 dayjs.extend(updateLocale);
 dayjs.updateLocale('en', {
@@ -23,8 +24,16 @@ function EventsMainPage () {
     const users = useAppSelector(getUsers);
     const events = useAppSelector(getEvents);
     const dispatch = useAppDispatch();
-    const [monthFilter, setMonthFilter] = useState<string>("Все месяцы");
-    const [statusFilter, setStatusFilter] = useState<string>("Все статусы");
+    const [monthFilter, setMonthFilter] = useState<MultiValue<{
+        value: string;
+        label: string;
+    }>>([]);
+    const [statusFilter, setStatusFilter] = useState<MultiValue<{
+        value: string;
+        label: string;
+    }>>([]);
+    const [isMonthHidden, setIsMonthHidden] = useState<boolean>(true);
+    const [isFilter, setIsFilter] = useState<boolean>(false);
 
     let monthsYearsArray: string[] = [];
     let monthsYearsByOptionsArray: string[] = [];
@@ -43,15 +52,15 @@ function EventsMainPage () {
     });
 
     const filteredEventsByMonthAndStatuses = filteredEventsByDate.filter((event) => {
-        if (monthFilter !== "Все месяцы" || statusFilter !== "Все статусы") {
-            if (monthFilter !== "Все месяцы" || statusFilter === "Все статусы") {
-                return dayjs(event.deadLine).format("MMMM YYYY") === monthFilter;
+        if (monthFilter.length > 0 || statusFilter.length > 0) {
+            if (monthFilter.length > 0 || statusFilter.length === 0) {
+                return monthFilter.some(month => month.value === dayjs(event.deadLine).format("MMMM YYYY"));
             }
-            if (monthFilter === "Все месяцы" || statusFilter !== "Все статусы") {
-                return event.status === statusFilter;
+            if (monthFilter.length === 0 || statusFilter.length > 0) {
+                return statusFilter.some(status => status.value === event.status);
             }
-            if (monthFilter !== "Все месяцы" && statusFilter !== "Все статусы") {
-                return (dayjs(event.deadLine).format("MMMM YYYY") === monthFilter) && (event.status === statusFilter);
+            if (monthFilter.length > 0 && statusFilter.length > 0) {
+                return monthFilter.some(month => month.value === dayjs(event.deadLine).format("MMMM YYYY")) && (statusFilter.some(status => status.value === event.status));
             }
         }
         else {
@@ -81,7 +90,7 @@ function EventsMainPage () {
         const status = event.status;
 
         if (status !== null) {
-            statusesArray.push(status);
+            statusesForOptionArray.push(status);
         }
     });
 
@@ -89,6 +98,10 @@ function EventsMainPage () {
     monthsYearsByOptionsArray = monthsYearsByOptionsArray.filter((item, index) => (monthsYearsByOptionsArray.indexOf(item) === index));
     statusesArray = statusesArray.filter((item, index) => (statusesArray.indexOf(item) === index));
     statusesForOptionArray = statusesForOptionArray.filter((item, index) => (statusesForOptionArray.indexOf(item) === index));
+    const selectMonthsOptions: {value: string, label: string}[] = [];
+    monthsYearsByOptionsArray.forEach(month => {selectMonthsOptions.push({value: month, label: `${month} (${[...events].filter(event => dayjs(event.deadLine).format("MMMM YYYY") === month).length})`});});
+    const selectStatusOptions: {value: string, label: string}[] = [];
+    statusesForOptionArray.forEach(status => {selectStatusOptions.push({value: status, label: `${status} (${filteredEventsByDate.filter(event => event.status === status).length})`});});
 
     return (
         <div className="events-main-page">
@@ -99,14 +112,48 @@ function EventsMainPage () {
                 <img src='../../imgs/dp-logo.svg' width={75}/>
                 <div className="events-main-page__title">Ключевые события "Деталь&nbsp;Проект"</div>
             </header>
-            <select value={monthFilter} name="months" onChange={(e) => setMonthFilter(e.target.value)}>
-                <option value="Все месяцы">Все месяцы ({filteredEventsByMonthAndStatuses.length})</option>
-                {monthsYearsByOptionsArray.map((item) => (<option value={item}>{item} ({[...events].filter(event => dayjs(event.deadLine).format("MMMM YYYY") === item).length})</option>))}
-            </select>
-            <select value={statusFilter} name="statuses" onChange={(e) => setStatusFilter(e.target.value)}>
-                <option value="Все статусы">Все статусы ({filteredEventsByMonthAndStatuses.length})</option>
-                {statusesArray.map((item) => (<option value={item}>{item} ({filteredEventsByDate.filter(event => event.status === item).length})</option>))}
-            </select>
+            <button className="events-main-page__filter" onClick={() => setIsFilter(!isFilter)}>
+                <MdFilterAlt />
+                <span>{isFilter ? "Закрыть" : "Открыть"} фильтр</span>
+            </button>
+            {isFilter &&
+                <>
+                    <Select
+                        closeMenuOnSelect={false}
+                        hideSelectedOptions={false}
+                        options={selectMonthsOptions}
+                        isMulti={true}
+                        onChange={(event) => {setMonthFilter(event)}}
+                        value={monthFilter}
+                        placeholder={"Выбирите месяц..."}
+                        isDisabled={statusFilter.length > 0}
+                        styles={{
+                            container: (provided) => ({
+                                ...provided,
+                                width: "100%",
+                                marginBottom: "15px"
+                            })
+                        }}
+                    />
+                    <Select
+                        closeMenuOnSelect={false}
+                        hideSelectedOptions={false}
+                        isMulti={true}
+                        options={selectStatusOptions}
+                        onChange={(event) => {setStatusFilter(event)}}
+                        value={statusFilter}
+                        placeholder={"Выбирите статус..."}
+                        isDisabled={monthFilter.length > 0}
+                        styles={{
+                            container: (provided) => ({
+                                ...provided,
+                                width: "100%",
+                                marginBottom: "15px"
+                            })
+                        }}
+                    />
+                </>
+            }
             <section className="events-main-page__events">
                 {monthsYearsArray.map(monthYear => {
                     const currentMonthYearEvents = filteredEventsByMonthAndStatuses.filter(event => dayjs(event.deadLine).format("MMMM YYYY") === monthYear);

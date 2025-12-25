@@ -13,17 +13,19 @@ function Event(props: EventPropsType): React.ReactElement {
 
       return (
           <article className="event" onClick={() => setIsOpen(!isOpen)} key={event.id}>
-              <div className={classNames(
-                  'event__status',
-                  {'event__status--attention': event.status === EventStatuses.Attention},
-                  {'event__status--warning': event.status === EventStatuses.Warning},
-                  {'event__status--critical': event.status === EventStatuses.Critical},
-              )}></div>
-              <div className="event__name">{event.name}</div>
-              <div>{event.jobName}</div>
-              <div className="event__dates">
-                  <div>{dayjs(event.deadLine).format("DD.MM.YYYY")}</div>
-                  <div className="event__to-deadline">(осталось {dayjs(event.deadLine).diff(dayjs(), 'days')} дней)</div>
+              <div className="event__short">
+                  <div className={classNames(
+                      'event__status',
+                      {'event__status--attention': event.status === EventStatuses.Attention},
+                      {'event__status--warning': event.status === EventStatuses.Warning},
+                      {'event__status--critical': event.status === EventStatuses.Critical},
+                  )}></div>
+                  <div className="event__name">{event.name}</div>
+                  <div className="event__job-name">{event.jobName}</div>
+                  <div className="event__dates">
+                      <div className="event__date">{dayjs(event.deadLine).format("DD.MM.YYYY")}</div>
+                      <div className="event__to-deadline">(осталось {dayjs(event.deadLine).diff(dayjs(), 'days')} дней)</div>
+                  </div>
               </div>
               <div className={classNames(
                   "event__description",
