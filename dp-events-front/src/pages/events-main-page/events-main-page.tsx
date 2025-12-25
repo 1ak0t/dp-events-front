@@ -94,6 +94,28 @@ function EventsMainPage () {
         }
     });
 
+    const getFilterLabel = (status: EventStatuses) => {
+        let statusLabel = '';
+        switch (status) {
+            case EventStatuses.Planed:
+                statusLabel = `(> 45 к.д.) ${statusLabel}`;
+                break;
+            case EventStatuses.Attention:
+                statusLabel = `(< 45 к.д.) ${statusLabel}`;
+                break;
+            case EventStatuses.Warning:
+                statusLabel = `(< 30 к.д.) ${statusLabel}`;
+                break;
+            case EventStatuses.Critical:
+                statusLabel = `(< 15 к.д.) ${statusLabel}`;
+                break;
+
+        }
+        statusLabel = `${statusLabel} ${status}`;
+        statusLabel = `${statusLabel} (${filteredEventsByDate.filter(event => event.status === status).length})`;
+        return statusLabel;
+    }
+
     monthsYearsArray = monthsYearsArray.filter((item, index) => (monthsYearsArray.indexOf(item) === index));
     monthsYearsByOptionsArray = monthsYearsByOptionsArray.filter((item, index) => (monthsYearsByOptionsArray.indexOf(item) === index));
     statusesArray = statusesArray.filter((item, index) => (statusesArray.indexOf(item) === index));
@@ -101,7 +123,7 @@ function EventsMainPage () {
     const selectMonthsOptions: {value: string, label: string}[] = [];
     monthsYearsByOptionsArray.forEach(month => {selectMonthsOptions.push({value: month, label: `${month} (${[...events].filter(event => dayjs(event.deadLine).format("MMMM YYYY") === month).length})`});});
     const selectStatusOptions: {value: string, label: string}[] = [];
-    statusesForOptionArray.forEach(status => {selectStatusOptions.push({value: status, label: `${status} (${filteredEventsByDate.filter(event => event.status === status).length})`});});
+    statusesForOptionArray.forEach(status => {selectStatusOptions.push({value: status, label: getFilterLabel(status)});});
 
     return (
         <div className="events-main-page">
